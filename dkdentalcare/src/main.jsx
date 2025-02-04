@@ -1,10 +1,11 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';  // Import hlavní komponenty
+import './index.css';      // Globální styly
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+// Tento kód připojí komponentu App do elementu s id 'root' v index.html
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
     <App />
-  </StrictMode>,
-)
+  </React.StrictMode>
+);
