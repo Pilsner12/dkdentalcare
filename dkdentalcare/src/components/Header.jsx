@@ -1,19 +1,14 @@
-// src/components/Header.jsx
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Box, Typography } from "@mui/material";
 
 function Header() {
   return (
-    <header>
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-        </ul>
-      </nav>
-    </header>
+    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+      <img src="/src/assets/icons/logo.png" alt="DK Dental Care Logo" style={{ height: 50 }} />
+      <Box>
+        <Typography variant="h6" sx={{ fontWeight: "bold" }}>DK</Typography>
+        <Typography variant="subtitle2">dental care s.r.o</Typography>
+      </Box>
+    </Box>
   );
 }
 
