@@ -1,25 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AppBar, Toolbar, Container, Box, Button, IconButton, Drawer, List, ListItem, ListItemText } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import Home from "./pages/Home";
-import About from "./pages/About";
 import Contact from "./pages/Contact";
+import CalendarPage from "./pages/Calendar"; 
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import RepublikaBezKazu from "./pages/RepublikaBezKazu";
 
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  useEffect(() => {
+    const handleScroll = () => setScrolling(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   const menuItems = [
     { text: "Domů", id: "home" },
-    { text: "O nás", id: "about" },
+    { text: "Kalendář", id: "calendar" },
     { text: "Kontakt", id: "contact" },
+    { text: "Republika Bez Kazu", id: "republika" }, // Nový odkaz v menu
   ];
 
   return (
@@ -27,54 +34,54 @@ function App() {
       <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         
         {/* Navigační lišta */}
-        <AppBar position="fixed" sx={{ backgroundColor: "white", boxShadow: "none", borderBottom: "1px solid #ddd" }}>
-          <Container maxWidth="md">
-            <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0" }}>
-              
-              {/* Logo a nadpis */}
+        <AppBar
+          position="fixed"
+          sx={{
+            background: "linear-gradient(0deg, rgba(0, 51, 102, 0.8), rgba(0, 85, 164, 0.8), rgba(0, 153, 255, 0.8))",
+            backdropFilter: scrolling ? "blur(10px)" : "none",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+            borderBottom: "1px solid rgba(255, 255, 0, 0.8)",
+            transition: "all 0.3s ease-in-out",
+          }}
+        >
+          <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
               <Header />
-
-              {/* Menu - viditelné na desktopu */}
               <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
                 {menuItems.map((item) => (
                   <Button
                     key={item.text}
                     color="inherit"
-                    sx={{ color: "black", fontSize: "1rem" }}
+                    sx={{
+                      color: "white",
+                      fontSize: "1rem",
+                      '&:hover': { color: "yellow" },
+                    }}
                     onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" })}
                   >
                     {item.text}
                   </Button>
                 ))}
               </Box>
-
-              {/* Ikona hamburgeru pro mobilní verzi */}
               <IconButton 
                 color="inherit" 
                 edge="end" 
                 onClick={handleDrawerToggle} 
-                sx={{ display: { xs: "block", md: "none" }, color: "black" }}
+                sx={{ display: { xs: "block", md: "none" }, color: "white" }}
               >
                 <MenuIcon />
               </IconButton>
-
             </Toolbar>
           </Container>
         </AppBar>
 
         {/* Mobilní menu */}
-        <Drawer 
-          anchor="top" 
-          open={mobileOpen} 
-          onClose={handleDrawerToggle}
-          PaperProps={{ sx: { width: "100%" } }}
-        >
+        <Drawer anchor="top" open={mobileOpen} onClose={handleDrawerToggle} PaperProps={{ sx: { width: "100%" } }}>
           <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
             <IconButton onClick={handleDrawerToggle}>
               <CloseIcon />
             </IconButton>
           </Box>
-
           <List>
             {menuItems.map((item) => (
               <ListItem 
@@ -93,23 +100,21 @@ function App() {
 
         {/* Hlavní obsah */}
         <Box sx={{ flex: 1, width: "100%" }}>
-          {/* Home sekce */}
-          <section id="home">
+          {/* Ostatní sekce */}
+          <section id="home" style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Home />
           </section>
-
-          {/* O nás sekce */}
-          <section id="about" style={{ height: "400px", backgroundColor: "lightblue", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <About />
+          <section id="calendar" style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <CalendarPage />
           </section>
-
-          {/* Kontakt sekce */}
-          <section id="contact" style={{ height: "400px", backgroundColor: "lightgray", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <section id="contact" style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <Contact />
+          </section>
+          <section id="republika" style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <RepublikaBezKazu /> {/* Tato komponenta */}
           </section>
         </Box>
 
-        {/* Paticka */}
         <Footer />
       </Box>
     </Router>
