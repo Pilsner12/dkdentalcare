@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 function Header() {
   return (
     <Box 
-      sx={{ display: "flex", alignItems: "center", gap: 1, cursor: "pointer" }}
+      sx={{ display: "flex", alignItems: "center", gap: 1, cursor: "pointer", margin: 1.5 }}
       onClick={() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" })}
     >
       <img 

@@ -1,5 +1,4 @@
 import { Box, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";  // Importujeme Link pro smooth scroll
 
 function Home() {
   return (
@@ -65,7 +64,7 @@ function Home() {
 
       {/* Tlačítko pro přechod na sekci Kontakt */}
       <Button
-        component={Link}
+        component={Button}
         to="/contact" 
         variant="contained"
         color="primary"
