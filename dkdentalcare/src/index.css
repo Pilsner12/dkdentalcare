@@ -11,9 +11,9 @@
 
 /* Reset pro tělo stránky */
 body {
-  font-family: Arial, sans-serif; /* Nastaví základní písmo pro stránku */
+  font-family: 'Montserrat', Arial, sans-serif; /* Nastavte Montserrat jako výchozí font */
   line-height: 1.5;
-  background-color: #f4f4f4; /* Můžeš změnit podle potřeby */
+  background-color: #f4f4f4; /* Změňte podle potřeby */
   color: #333; /* Barva textu */
 }
 

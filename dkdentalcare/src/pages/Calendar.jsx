@@ -17,7 +17,7 @@ function CalendarPage() {
           locale="cs-CZ" 
         />
       </Paper>
-      <OrdinacniDoba />
+      
     </Box>
   );
 }

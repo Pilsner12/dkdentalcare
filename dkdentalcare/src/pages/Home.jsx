@@ -1,4 +1,5 @@
 import { Box, Typography, Button } from "@mui/material";
+import OrdinacniDoba from "../components/OpeningTime";
 
 function Home() {
   return (
@@ -36,6 +37,7 @@ function Home() {
           px: 3, 
         }}
       >
+        {/* Nadpis 1 */}
         <Typography
           variant="h2"
           sx={{
@@ -47,6 +49,7 @@ function Home() {
           Stomatologická&nbsp;péče
         </Typography>
 
+        {/* Nadpis 2 */}
         <Typography
           variant="h3"
           sx={{
@@ -60,24 +63,18 @@ function Home() {
         >
           pro celou Vaši rodinu.
         </Typography>
+
+        {/* Umístění Ordinační doby */}
+        <Box
+          sx={{
+            marginTop: "20px", // Odsazení mezi textem a tabulkou
+          }}
+        >
+          <OrdinacniDoba />
+        </Box>
       </Box>
 
-      {/* Tlačítko pro přechod na sekci Kontakt */}
-      <Button
-        component={Button}
-        to="/contact" 
-        variant="contained"
-        color="primary"
-        sx={{
-          position: "absolute",
-          top: "70%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          fontSize: { xs: "1.4rem", sm: "1.3rem", md: "1rem" },
-        }}
-      >
-        Kontaktujte nás
-      </Button>
+      
     </Box>
   );
 }

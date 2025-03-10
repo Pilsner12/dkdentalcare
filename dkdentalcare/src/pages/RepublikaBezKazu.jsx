@@ -53,10 +53,10 @@ const RepublikaBezKazu = () => {
             padding: '12px 25px',
             marginTop: 3, // Větší mezera mezi textem a tlačítkem
             fontWeight: 600,
-            borderRadius: '30px', // Zaoblené rohy pro moderní vzhled
+            borderRadius: '0px', // Zaoblené rohy pro moderní vzhled
             textTransform: 'none',
             boxShadow: '0 8px 15px rgba(0, 0, 0, 0.15)', // Jemný stín pro tlačítko
-            transition: 'background-color 0.3s ease, box-shadow 0.3s ease', // Hladký přechod při hoveru
+            transition: 'background-color 0.5s ease, box-shadow 0.3s ease', // Hladký přechod při hoveru
             '&:hover': {
               backgroundColor: '#388E3C', // Tmavší zelená při hoveru
               boxShadow: '0 12px 20px rgba(0, 0, 0, 0.2)',
