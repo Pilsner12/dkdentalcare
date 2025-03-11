@@ -1,10 +1,9 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import AdminDashboard from "./AdminDashboard";
 import LogIn from "./LogIn";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline, Container } from "@mui/material";
-import LogIn from "./LogIn"; // Přihlašovací stránka
 import { useAuth } from "./AuthContext"; // Kontext autentizace
+
 
 // Vytvoření tématu Material-UI
 const theme = createTheme({

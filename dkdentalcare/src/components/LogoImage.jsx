@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import { Box } from "@mui/material";
 
 const LogoImage = ({ src, alt }) => {
@@ -27,6 +27,11 @@ const LogoImage = ({ src, alt }) => {
       />
     </Box>
   );
+};
+
+LogoImage.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
 };
 
 export default LogoImage;

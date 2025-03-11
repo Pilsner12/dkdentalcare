@@ -2,7 +2,6 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // Import defaultního stylu
 import { Box, Typography, Paper } from "@mui/material";
-import OrdinacniDoba from "../components/OpeningTime";
 
 function CalendarPage() {
   const [date, setDate] = useState(new Date());

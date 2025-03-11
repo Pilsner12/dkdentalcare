@@ -1,5 +1,6 @@
 import { TextField, Button, Grid, Container, Typography, Box } from "@mui/material";
 import { IconPhone, IconMapPin, IconAt } from "@tabler/icons-react";
+import PropTypes from 'prop-types';
 import { supabase } from "../supabase/supabase-client";
 import { useEffect, useState } from "react";
 
@@ -9,11 +10,13 @@ const MOCKDATA = [
   { title: "Adresa", description: "Branská 55, 344 01 Domžalice", icon: IconMapPin },
 ];
 
-function ContactIcon({ title, description, icon: Icon }) {
+function ContactIcon({ title, description, icon }) {
+  const IconComponent = icon;
+  // Vrací JSX element, který obsahuje ikonu a popis kontaktu
   return (
     <Box display="flex" alignItems="center" m={2}>
       <Box mr={3}>
-        <Icon style={{ width: 30, height: 30 }} />
+        <IconComponent style={{ width: 30, height: 30 }} />
       </Box>
       <Box>
         <Typography variant="body2" color="textSecondary">{title}</Typography>
@@ -22,6 +25,13 @@ function ContactIcon({ title, description, icon: Icon }) {
     </Box>
   );
 }
+
+// Definice typů vstupních parametrů komponenty
+ContactIcon.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  icon: PropTypes.elementType.isRequired,
+};
 
 function ContactIconsList() {
   return <Box>{MOCKDATA.map((item, index) => <ContactIcon key={index} {...item} />)}</Box>;
@@ -40,10 +50,10 @@ export function Contact() {
         const { data: { user } } = await supabase.auth.getUser();
         if (user?.id) {
           const { data, error } = await supabase
-            .from("MessageFromFormular")
-            .select("id, UserName, UserEmail, UserMessage")
-            .eq("id", user.id)
-            .order("created_at", { ascending: false });
+          .from("MessageFromFormular")
+          .select("id, UserName, UserEmail, UserMessage")
+          .eq("UserEmail", user.email) // Filtrování podle emailu
+          .order("created_at", { ascending: false });
 
           if (error) throw error;
           setFormMessages(data);

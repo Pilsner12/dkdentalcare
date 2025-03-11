@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Typography, Container, Button } from '@mui/material';
 import RepublikaLogo from '../assets/icons/rep-bez-kazu-img.svg'; // Import SVG loga
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'; // Import ikony pro otevření nového odkazu

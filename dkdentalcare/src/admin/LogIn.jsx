@@ -1,23 +1,34 @@
-import React, { useState } from "react";
-import { Container, Box, TextField, Button, Typography, Alert } from "@mui/material";
+import { useState } from "react";
+import { Container, Box, TextField, Button, Typography, Alert, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../supabase/supabase-client"; // Přizpůsobte cestu ke svému supabase klientovi
+import { supabase } from "../supabase/supabase-client"; // Ověř správnou cestu
 
 function LogIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    console.log("DEBUG: Supabase response", data, error);
+
     if (error) {
-      setError("Přihlášení selhalo. Zkontrolujte své údaje.");
+      if (error.message.includes("Invalid login credentials")) {
+        setError("Nesprávný email nebo heslo.");
+      } else {
+        setError("Přihlášení selhalo. Zkuste to znovu.");
+      }
+      setLoading(false);
       return;
     }
+
     navigate("/admin/dashboard");
   };
 
@@ -44,8 +55,14 @@ function LogIn() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Přihlásit
+          <Button 
+            type="submit" 
+            fullWidth 
+            variant="contained" 
+            sx={{ mt: 3, mb: 2 }} 
+            disabled={loading}
+          >
+            {loading ? <CircularProgress size={24} color="inherit" /> : "Přihlásit"}
           </Button>
         </Box>
       </Box>
