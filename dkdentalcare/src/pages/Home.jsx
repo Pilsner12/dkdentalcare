@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import OrdinacniDoba from "../components/OpeningTime";
-import "./Home.css"; // Import CSS
+import "./Home.css";
 
 function Home() {
   return (
@@ -10,7 +10,7 @@ function Home() {
       <Box className="content-wrapper">
         {/* Nadpis 1 */}
         <Typography variant="h2" className="main-title">
-          Stomatologická&nbsp;péče
+          Stomatologická péče
         </Typography>
 
         {/* Nadpis 2 */}
