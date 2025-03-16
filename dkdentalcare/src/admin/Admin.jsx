@@ -4,8 +4,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline, Container } from "@mui/material";
 import { useAuth } from "./AuthContext"; // Kontext autentizace
 
-
-// Vytvoření tématu Material-UI
 const theme = createTheme({
   typography: {
     fontFamily: "Montserrat, Arial, sans-serif",
@@ -14,6 +12,8 @@ const theme = createTheme({
 
 function Admin() {
   const { isAuth } = useAuth(); // Přístup k autentizačnímu stavu z kontextu
+
+  console.log("Je uživatel autentizovaný?", isAuth); // Ladicí výstup pro ověření autentizace
 
   return (
     <ThemeProvider theme={theme}>
