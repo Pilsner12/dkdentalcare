@@ -6,7 +6,7 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 // Kontrola, zda jsou hodnoty k dispozici
 if (!supabaseUrl || !supabaseKey) {
-  throw new Error('supabaseUrl or supabaseKey is missing.');
+  throw new Error('supabaseUrl or supabaseKey is missing. Please check your environment variables.');
 }
 
 // Vytvoření klienta

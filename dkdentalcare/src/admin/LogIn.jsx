@@ -29,7 +29,7 @@ function LogIn() {
       return;
     }
 
-    navigate("/admin/dashboard");
+    navigate("/admin/aktuality");
   };
 
   return (

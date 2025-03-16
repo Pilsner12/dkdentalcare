@@ -23,9 +23,7 @@ import RepublikaBezKazu from "./pages/RepublikaBezKazu";
 import PriceList from "./pages/PriceList";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LogIn from "./admin/LogIn"; // Cesta k LogIn komponentě
-import AdminDashboard from "./admin/AdminDashboard"; // Cesta k AdminDashboard komponentě
-
-
+import AdminNav from "./admin/AdminNav"; // Cesta k AdminNav komponentě
 
 const theme = createTheme({
   typography: {
@@ -36,7 +34,6 @@ const theme = createTheme({
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolling, setScrolling] = useState(false);
- 
 
   useEffect(() => {
     const handleScroll = () => setScrolling(window.scrollY > 50);
@@ -68,14 +65,21 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
-          {/* Skrytá část pro admin sekci */}
-          <Route path="/admin" element={<LogIn />} />
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          {/* Zbytek aplikace jako SPA */}
+          {/* Admin sekce */}
+          <Route path="/admin" element={<LogIn />} /> {/* Login komponenta pro /admin */}
+          <Route path="/admin/*" element={<AdminNav />} /> {/* Navigace pro Admin */}
+
+          {/* Zbytek aplikace */}
           <Route
             path="/"
             element={
-              <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  minHeight: "100vh",
+                }}
+              >
                 {/* Navigace */}
                 <AppBar
                   position="fixed"
@@ -124,7 +128,10 @@ function App() {
                         color="inherit"
                         edge="end"
                         onClick={handleDrawerToggle}
-                        sx={{ display: { xs: "block", md: "none" }, color: "white" }}
+                        sx={{
+                          display: { xs: "block", md: "none" },
+                          color: "white",
+                        }}
                       >
                         <MenuIcon />
                       </IconButton>
@@ -132,14 +139,16 @@ function App() {
                   </Container>
                 </AppBar>
 
-                {/* Postranní menu (pro mobilní zařízení) */}
+                {/* Postranní menu pro mobilní zařízení */}
                 <Drawer
                   anchor="top"
                   open={mobileOpen}
                   onClose={handleDrawerToggle}
                   PaperProps={{ sx: { width: "100%" } }}
                 >
-                  <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}
+                  >
                     <IconButton onClick={handleDrawerToggle}>
                       <CloseIcon />
                     </IconButton>
@@ -159,69 +168,19 @@ function App() {
 
                 {/* Sekce */}
                 <Box sx={{ flex: 1, width: "100%", marginTop: `0px` }}>
-                  <section
-                    id="home"
-                    style={{
-                      minHeight: "100vh",
-                      padding: "0rem",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <section id="home">
                     <Home />
                   </section>
-                  <section
-                    id="calendar"
-                    style={{
-                      minHeight: "100vh",
-                      padding: "1rem",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <section id="calendar">
                     <CalendarPage />
                   </section>
-                  <section
-                    id="pricelist"
-                    style={{
-                      minHeight: "100vh",
-                      padding: "1rem",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <section id="pricelist">
                     <PriceList />
                   </section>
-                  <section
-                    id="contact"
-                    style={{
-                      minHeight: "100vh",
-                      padding: "1rem",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <section id="contact">
                     <Contact />
                   </section>
-                  <section
-                    id="republika"
-                    style={{
-                      minHeight: "100vh",
-                      padding: "1rem",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <section id="republika">
                     <RepublikaBezKazu />
                   </section>
                 </Box>
