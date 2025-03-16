@@ -9,10 +9,10 @@ export default defineConfig({
       output: {
         globals: {
           'react-router-dom': 'ReactRouterDOM',
-          '@mui/material': 'MaterialUI',
-          '@mui/icons-material': 'MaterialUIIcons',
-        },
+          external: ['@mui/material', '@mui/icons-material'],
       },
     },
   },
+},
 });
+  
