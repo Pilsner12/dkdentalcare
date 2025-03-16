@@ -1,14 +1,16 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  plugins: [react()],
   build: {
     rollupOptions: {
-      external: [build.rollupOptions.external, 'react-router-dom', '@mui/material', '@mui/icons-material'],
+      external: ["react-router-dom", "@mui/material", "@mui/icons-material"],
       output: {
         globals: {
-          'react-router-dom': 'ReactRouterDOM',
-          '@mui/material': 'MaterialUI',
-          '@mui/icons-material': 'MaterialIcons',
+          "react-router-dom": "ReactRouterDOM",
+          "@mui/material": "MUI",
+          "@mui/icons-material": "MUIIcons",
         },
       },
     },
