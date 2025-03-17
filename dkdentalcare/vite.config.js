@@ -1,41 +1,32 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      external: [
-        "react-router-dom",
-        "@mui/material",
-        "@mui/icons-material",
-        "@mui/icons-material/Menu",
-        "@mui/icons-material/Close",
-        "@mui/material/styles",
-        "@mui/material/Box",
-        "@mui/material/Button",
-        "@mui/material/AppBar",
-        "@mui/material/Toolbar",
-        "@mui/material/Container",
-        "@mui/material/IconButton",
-        "@mui/material/Drawer",
-        "@mui/material/List",
-        "@mui/material/ListItem",
-        "@mui/material/ListItemText",
-        "@mui/material/ThemeProvider",
-        "@emotion/react",
-        "@emotion/styled",
-        "@mui/material/Paper",
-        "@mui/material/Typography",
-        "react-calendar"
-      ],
-      output: {
-        globals: {
-          "react-router-dom": "ReactRouterDOM",
-          "@mui/material": "MUI",
-          "@mui/icons-material": "MUIIcons",
-        },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "./src/_mui" as *;`, // pokud používáš SCSS pro MUI, přizpůsob si cestu
       },
     },
   },
-});
+  build: {
+    target: 'esnext',
+    rollupOptions: {
+      external: [
+        '@mui/material',
+        '@mui/icons-material',
+        '@emotion/react',
+        '@emotion/styled'
+      ],
+      output: {
+        globals: {
+          '@mui/material': 'MaterialUI',
+          '@mui/icons-material': 'MaterialUIIcons',
+          '@emotion/react': 'EmotionReact',
+          '@emotion/styled': 'EmotionStyled'
+        }
+      }
+    }
+  }
+})
