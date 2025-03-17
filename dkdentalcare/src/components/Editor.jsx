@@ -1,6 +1,5 @@
 import  { useEffect, useRef } from 'react';
 import EditorJS from '@editorjs/editorjs';
-import { supabase } from '../supabase/supabase-client';
 
 function Editor({ contentType, initialData, onSave }) {
   const editorRef = useRef(null);

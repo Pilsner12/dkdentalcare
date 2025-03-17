@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Drawer, AppBar, Toolbar, Typography, Container } from '@mui/material';
 import AdminNav from './AdminNav'; // Komponenta postranního panelu
 import { Outlet } from 'react-router-dom'; // Pro vkládání dalších komponent (např. dashboardu)

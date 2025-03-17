@@ -1,24 +1,62 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import { supabase } from "../supabase/supabase-client";
+import { createContext, useContext, useEffect, useState } from "react"
+import { supabase } from "../supabase/supabase-client"
 
-const AuthContext = createContext();
+const AuthContext = createContext({});
 
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+export const useAuth = () => useContext(AuthContext)
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data } = await supabase.auth.getUser();
-      setUser(data?.user ?? null);
-    };
-    checkAuth();
-  }, []);
+
+async function login(email, password) {
+  return await supabase.auth.signInWithPassword({ email, password })
+}
+
+async function logout() {
+  return await supabase.auth.signOut()
+}
+
+
+export function AuthProvider({children}) {
+  const [user, setUser] = useState(null)
+  const [isAuth, setIsAuth] = useState(false)
+
+  useEffect(
+    () => {
+      const {data} = supabase.auth.onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_IN') {
+          setIsAuth(true)
+          setUser(session.user)
+        }
+        if (event === 'SIGNED_OUT') {
+          setIsAuth(false)
+          setUser(null)
+        }
+      })
+
+      return () => {
+        data.subscription.unsubscribe()
+      }
+    },
+    []
+  )
+
+
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{
+      user,
+      isAuth,
+      login,
+      logout,
+    }}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
 
-export const useAuth = () => useContext(AuthContext);
+}
+
+
+
+
+
+
+

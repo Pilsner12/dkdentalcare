@@ -22,12 +22,12 @@ import Header from "./components/Header";
 import RepublikaBezKazu from "./pages/RepublikaBezKazu";
 import PriceList from "./pages/PriceList";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LogIn from "./admin/LogIn"; // Cesta k LogIn komponentě
-import AdminNav from "./admin/AdminNav"; // Cesta k AdminNav komponentě
+import LogIn from "./admin/LogIn";
+import AdminNav from "./admin/AdminNav";
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Montserrat, Arial, sans-serif", // Použití fontu Montserrat
+    fontFamily: "Montserrat, Arial, sans-serif",
   },
 });
 
@@ -43,7 +43,6 @@ function App() {
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
-  // Menu položky s ID sekcí
   const menuItems = [
     { text: "Domů", id: "home" },
     { text: "Kalendář", id: "calendar" },
@@ -52,35 +51,24 @@ function App() {
     { text: "Republika Bez Kazu", id: "republika" },
   ];
 
-  // Funkce pro plynulé posouvání
   const handleScrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
-      setMobileOpen(false); // Zavření mobilního menu
+      setMobileOpen(false);
     }
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
-          {/* Admin sekce */}
-          <Route path="/admin" element={<LogIn />} /> {/* Login komponenta pro /admin */}
-          <Route path="/admin/*" element={<AdminNav />} /> {/* Navigace pro Admin */}
-
-          {/* Zbytek aplikace */}
+          <Route path="/admin" element={<LogIn />} />
+          <Route path="/admin/*" element={<AdminNav />} />
           <Route
             path="/"
             element={
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  minHeight: "100vh",
-                }}
-              >
-                {/* Navigace */}
+              <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
                 <AppBar
                   position="fixed"
                   sx={{
@@ -92,81 +80,41 @@ function App() {
                     transition: "all 0.3s ease-in-out",
                   }}
                 >
-                  <Container
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Toolbar
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        width: "100%",
-                      }}
-                    >
+                  <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
                       <Header />
                       <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
                         {menuItems.map((item) => (
                           <Button
                             key={item.text}
                             color="inherit"
-                            sx={{
-                              color: "white",
-                              fontSize: "1rem",
-                              "&:hover": { color: "yellow" },
-                            }}
-                            onClick={() => handleScrollToSection(item.id)} // Posouvání k sekci
+                            sx={{ color: "white", fontSize: "1rem", "&:hover": { color: "yellow" } }}
+                            onClick={() => handleScrollToSection(item.id)}
                           >
                             {item.text}
                           </Button>
                         ))}
                       </Box>
-                      <IconButton
-                        color="inherit"
-                        edge="end"
-                        onClick={handleDrawerToggle}
-                        sx={{
-                          display: { xs: "block", md: "none" },
-                          color: "white",
-                        }}
-                      >
+                      <IconButton color="inherit" edge="end" onClick={handleDrawerToggle} sx={{ display: { xs: "block", md: "none" }, color: "white" }}>
                         <MenuIcon />
                       </IconButton>
                     </Toolbar>
                   </Container>
                 </AppBar>
-
-                {/* Postranní menu pro mobilní zařízení */}
-                <Drawer
-                  anchor="top"
-                  open={mobileOpen}
-                  onClose={handleDrawerToggle}
-                  PaperProps={{ sx: { width: "100%" } }}
-                >
-                  <Box
-                    sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}
-                  >
+                <Drawer anchor="top" open={mobileOpen} onClose={handleDrawerToggle} PaperProps={{ sx: { width: "100%" } }}>
+                  <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
                     <IconButton onClick={handleDrawerToggle}>
                       <CloseIcon />
                     </IconButton>
                   </Box>
                   <List>
                     {menuItems.map((item) => (
-                      <ListItem
-                        button
-                        key={item.text}
-                        onClick={() => handleScrollToSection(item.id)}
-                      >
+                      <ListItem button key={item.text} onClick={() => handleScrollToSection(item.id)}>
                         <ListItemText primary={item.text} />
                       </ListItem>
                     ))}
                   </List>
                 </Drawer>
-
-                {/* Sekce */}
                 <Box sx={{ flex: 1, width: "100%", marginTop: `0px` }}>
                   <section id="home">
                     <Home />
@@ -184,8 +132,6 @@ function App() {
                     <RepublikaBezKazu />
                   </section>
                 </Box>
-
-                {/* Zápatí */}
                 <Footer />
               </Box>
             }
