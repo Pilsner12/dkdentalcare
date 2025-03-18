@@ -12,6 +12,7 @@ export default defineConfig({
         "@mui/icons-material",
         "@emotion/react",
         "@emotion/styled",
+        
       ],
       output: {
         globals: {
