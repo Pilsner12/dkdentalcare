@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import React from 'react';
+import React from "react";
+import logo from "../assets/icons/logo.png"; // Import obrázku
 
 function Header() {
   return (
@@ -8,7 +9,7 @@ function Header() {
       onClick={() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" })}
     >
       <img 
-        src="/src/assets/icons/logo.png" 
+        src={logo} // Použití importovaného obrázku
         alt="DK Dental Care Logo" 
         style={{ height: 50 }} 
       />

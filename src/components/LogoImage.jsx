@@ -18,7 +18,7 @@ const LogoImage = ({ src, alt }) => {
       }}
     >
       <img
-        src={src} // Zdroj obrázku
+        src={src.startsWith("/") ? src : `/assets/${src}`} // Automatická úprava cesty
         alt={alt} // Alternativní text pro obrázek
         style={{
           maxWidth: "100%", // Přizpůsobení šířky obsahu boxu
