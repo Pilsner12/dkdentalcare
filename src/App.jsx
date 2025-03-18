@@ -11,25 +11,24 @@ import {
   List,
   ListItem,
   ListItemText,
-} from "@mui/material"; // Import z npm
-import MenuIcon from "@mui/icons-material/Menu"; // Import z npm
-import CloseIcon from "@mui/icons-material/Close"; // Import z npm
-import { createTheme, ThemeProvider } from "@mui/material/styles"; // Import z npm
+} from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import CalendarPage from "./pages/Calendar";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import RepublikaBezKazu from "./pages/RepublikaBezKazu";
 import PriceList from "./pages/PriceList";
 import LogIn from "./admin/LogIn";
 import AdminNav from "./admin/AdminNav";
+import RepublikaBezKazu from "./pages/RepublikaBezKazu"; // Přidán import
 import AOS from "aos";
-import "aos/dist/aos.css"; // Nezapomeňte importovat stylování
+import "aos/dist/aos.css";
 
-// Konstanty pro nastavení AOS
-const AOS_DURATION = 500; // Rychlost animací
-const AOS_DELAY_STEP = 100; // Zpoždění mezi animacemi pro jednotlivé sekce
+const AOS_DURATION = 500;
+const AOS_DELAY_STEP = 100;
 
 const theme = createTheme({
   typography: {
@@ -45,7 +44,6 @@ function App() {
     const handleScroll = () => setScrolling(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
 
-    // Inicializace AOS s konstantním nastavením
     AOS.init({
       duration: AOS_DURATION,
       once: true,
@@ -68,10 +66,10 @@ function App() {
     const section = document.getElementById(id);
     if (section) {
       window.scrollTo({
-        top: section.offsetTop - 110, // Posuneme stránku o výšku navbaru
+        top: section.offsetTop - 110,
         behavior: "smooth",
       });
-      setMobileOpen(false); // Zavře menu na mobilu po kliknutí
+      setMobileOpen(false);
     }
   };
 
@@ -105,7 +103,7 @@ function App() {
                             key={item.text}
                             color="inherit"
                             sx={{ color: "white", fontSize: "1rem", "&:hover": { color: "yellow" } }}
-                            onClick={() => handleScrollToSection(item.id)} // Používáme tuto funkci pro scrollování
+                            onClick={() => handleScrollToSection(item.id)}
                           >
                             {item.text}
                           </Button>
