@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { supabase } from "../supabase/supabase-client";
 import {
   Container,
@@ -110,7 +109,6 @@ export function PriceList() {
       <Box
         sx={{
           display: "grid",
-
           justifyItems: "center",
           gridTemplateColumns: {
             xs: "repeat(2, 1fr)",
@@ -123,19 +121,19 @@ export function PriceList() {
         }}
       >
         <a href="https://www.cpzp.cz" target="_blank" rel="noopener noreferrer">
-          <LogoImage src="/src/assets/pojistovny/cpzp.png" alt="ČPZP" />
+          <LogoImage src="/assets/pojistovny/cpzp.png" alt="ČPZP" />
         </a>
         <a href="https://www.ozp.cz" target="_blank" rel="noopener noreferrer">
-          <LogoImage src="/src/assets/pojistovny/ozp.png" alt="OZP" />
+          <LogoImage src="/assets/pojistovny/ozp.png" alt="OZP" />
         </a>
         <a href="https://www.vozp.cz" target="_blank" rel="noopener noreferrer">
-          <LogoImage src="/src/assets/pojistovny/vozp.png" alt="VOZP" />
+          <LogoImage src="/assets/pojistovny/vozp.png" alt="VOZP" />
         </a>
         <a href="https://www.vzp.cz" target="_blank" rel="noopener noreferrer">
-          <LogoImage src="/src/assets/pojistovny/vzp.jpg" alt="VZP" />
+          <LogoImage src="/assets/pojistovny/vzp.jpg" alt="VZP" />
         </a>
         <a href="https://www.zpmvcr.cz/" target="_blank" rel="noopener noreferrer">
-          <LogoImage src="/src/assets/pojistovny/zpmv.png" alt="ZPMV" />
+          <LogoImage src="/assets/pojistovny/zpmv.png" alt="ZPMV" />
         </a>
       </Box>
     </>
