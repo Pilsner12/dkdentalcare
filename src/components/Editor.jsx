@@ -1,50 +1,71 @@
-import { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types'; // Import pro validaci props
-import EditorJS from '@editorjs/editorjs';
-import React from 'react'; // Import React, pokud není již importován
+import React, { useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Stylování editoru
 
-function Editor({ initialData, onSave }) {
-  const editorRef = useRef(null);
+const Editor = ({ data, onSave }) => {
+  const [editorContent, setEditorContent] = useState(data || "");
+  const [isClicked, setIsClicked] = useState(false); // Stav pro animaci tlačítka
+  const [isHovered, setIsHovered] = useState(false); // Stav pro efekt při najetí myší
 
-  useEffect(() => {
-    console.log("Inicializace EditorJS...");
-
-    async function initializeEditor() {
-      let editorData = initialData || { blocks: [] };
-
-      editorRef.current = new EditorJS({
-        holder: 'editorjs',
-        data: editorData,
-        placeholder: "Začněte psát zde...",
-        onChange: async () => {
-          const savedData = await editorRef.current.save();
-          onSave(savedData);
-        },
-      });
+  const handleSave = () => {
+    if (onSave) {
+      onSave(editorContent);
     }
-
-    initializeEditor();
-
-    return () => {
-      if (editorRef.current) {
-        editorRef.current.destroy();
-        editorRef.current = null;
-      }
-    };
-  }, [initialData, onSave]);
+    setIsClicked(true); // Spustí animaci
+    setTimeout(() => setIsClicked(false), 200); // Resetuje animaci po 200ms
+  };
 
   return (
     <div
-      id="editorjs"
-      style={{ border: '1px solid #ddd', padding: '10px', width: '100%', minHeight: '300px' }}
-    ></div>
+      style={{
+        maxWidth: "800px",
+        width: "90%", // Flexibilní šířka
+        margin: "0 auto",
+        padding: "20px",
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        boxSizing: "border-box",
+      }}
+    >
+      <ReactQuill
+        value={editorContent}
+        onChange={setEditorContent}
+        theme="snow"
+        style={{
+          height: "calc(50vh - 50px)", // Flexibilní výška
+          minHeight: "200px", // Minimální výška
+          marginBottom: "20px",
+          borderRadius: "4px",
+        }}
+      />
+      <div style={{ textAlign: "center", marginTop: "65px" }}>
+        <button
+          onClick={handleSave}
+          onMouseOver={() => setIsHovered(true)} // Nastaví stav při najetí myší
+          onMouseOut={() => setIsHovered(false)} // Resetuje stav při opuštění myší
+          className={`${isClicked ? "button-clicked" : ""} ${
+            isHovered ? "button-hovered" : ""
+          }`}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: isHovered ? "#0056b3" : "#007BFF", // Změna barvy při najetí
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+            fontSize: "16px",
+            width: "100%", // Tlačítko se přizpůsobí šířce na mobilu
+            maxWidth: "200px", // Maximální šířka tlačítka
+            transform: isClicked ? "scale(0.9)" : isHovered ? "scale(1.05)" : "scale(1)", // Zmenšení při kliknutí
+            boxShadow: isClicked ? "0 4px 15px rgba(0, 123, 255, 0.5)" : "none", // Jemný stín při kliknutí
+            transition: "transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease", // Plynulý přechod
+          }}
+        >
+          Uložit
+        </button>
+      </div>
+    </div>
   );
-}
-
-// Validace props
-Editor.propTypes = {
-  initialData: PropTypes.object, // Pokud je to objekt (editor data)
-  onSave: PropTypes.func.isRequired, // Funkce pro ukládání dat
 };
 
 export default Editor;

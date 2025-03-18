@@ -6,9 +6,7 @@ import { AuthProvider } from "./admin/AuthContext";
 
 // Tento kód připojí komponentu App do elementu s id 'root' v index.html
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  </React.StrictMode>
+  <AuthProvider>
+    <App />
+  </AuthProvider>
 );

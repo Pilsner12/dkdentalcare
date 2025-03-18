@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../supabase/supabase-client";
 import {
   Typography,
@@ -9,13 +9,13 @@ import {
   TableCell,
   Box,
 } from "@mui/material";
-import React from 'react';
+import React from "react";
 
-const OrdinacniDoba = () => {
-  const [ordinacniDoba, setOrdinacniDoba] = useState("");
+const OpeningTime = () => {
+  const [ordinacniDoba, setOpeningTime] = useState(""); // Opraveno: správný název stavu
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const fetchOrdinacniDoba = async () => {
+  const fetchOpeningTime = async () => {
     try {
       const { data, error, status } = await supabase
         .from("obsah")
@@ -29,7 +29,7 @@ const OrdinacniDoba = () => {
       }
 
       if (data) {
-        setOrdinacniDoba(data.obsah);
+        setOpeningTime(data.obsah); // Uložení obsahu do stavu
       } else {
         console.warn("No rows returned for ordinacni_doba.");
         setErrorMessage("Nebyly nalezeny žádné záznamy ordinační doby.");
@@ -41,24 +41,25 @@ const OrdinacniDoba = () => {
   };
 
   useEffect(() => {
-    fetchOrdinacniDoba();
+    fetchOpeningTime();
   }, []);
 
-  const formatOrdinacniDobaToTable = () => {
+  const formatOpeningTimeToTable = () => {
+    if (!ordinacniDoba) return []; // Ochrana proti prázdným datům
     const days = ordinacniDoba
-      .split("<p>")
-      .filter((item) => item.trim() !== "")
-      .map((item) => item.replace("</p>", ""));
+      .split("<p>") // Rozdělení na jednotlivé dny
+      .filter((item) => item.trim() !== "") // Odstranění prázdných řádků
+      .map((item) => item.replace("</p>", "").trim()); // Odstranění HTML značek
     return days.map((day) => {
       const parts = day.split(":");
       return {
-        dayName: parts[0].trim(),
-        hours: parts.slice(1).join(":").trim(),
+        dayName: parts[0].trim(), // Název dne
+        hours: parts.slice(1).join(":").trim(), // Ordinační hodiny
       };
     });
   };
 
-  const tableData = formatOrdinacniDobaToTable();
+  const tableData = formatOpeningTimeToTable();
 
   return errorMessage ? (
     <Typography
@@ -123,4 +124,4 @@ const OrdinacniDoba = () => {
   );
 };
 
-export default OrdinacniDoba;
+export default OpeningTime;

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "../supabase/supabase-client";
 import Editor from "../components/Editor";
 
-const Cenik = () => {
-  const [data, setData] = useState(""); // Stav pro data z databáze
-  const [loading, setLoading] = useState(true); // Stav pro načítání
+const Aktuality = () => {
+  const [data, setData] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,7 +12,7 @@ const Cenik = () => {
       const { data, error } = await supabase
         .from("obsah")
         .select("obsah")
-        .eq("typ", "cenik")
+        .eq("typ", "aktuality")
         .single();
 
       if (error) {
@@ -31,18 +31,18 @@ const Cenik = () => {
     const { error } = await supabase
       .from("obsah")
       .update({ obsah: savedData })
-      .eq("typ", "cenik");
+      .eq("typ", "aktuality");
 
     if (error) {
       console.error("Chyba při ukládání dat:", error);
     } else {
       console.log("Data úspěšně uložena:", savedData);
-      setData(savedData); // Aktualizace stavu po úspěšném uložení
+      setData(savedData);
     }
   };
 
   if (loading) {
-    return <p>Načítání...</p>; // Zobrazení indikátoru načítání
+    return <p>Načítání...</p>;
   }
 
   return (
@@ -59,11 +59,11 @@ const Cenik = () => {
           marginTop: "20px",
         }}
       >
-        Ceník
+        Aktuality
       </h1>
       <Editor data={data} onSave={handleSave} />
     </div>
   );
 };
 
-export default Cenik;
+export default Aktuality;

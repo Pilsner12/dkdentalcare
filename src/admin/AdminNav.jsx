@@ -15,29 +15,27 @@ import {
   IconCalendar,
   IconMoneybag,
   IconLogout,
-} from "@tabler/icons-react"; // Ikony
-import { useAuth } from "../admin/AuthContext"; // Pro získání údajů o uživatelském přihlášení
-import React from 'react';
+} from "@tabler/icons-react";
+import { useAuth } from "../admin/AuthContext";
+import React from "react";
 
 const data = [
   { link: "/admin/aktuality", label: "Aktuality", icon: IconBellRinging },
-  { link: "/admin/cenik", label: "Cenik", icon: IconMoneybag },
-  { link: "/admin/oteviraci-doba", label: "Ordinacni doba", icon: IconCalendar,  },
+  { link: "/admin/cenik", label: "Ceník", icon: IconMoneybag },
+  { link: "/admin/ordinacni-doba", label: "Ordinační doba", icon: IconCalendar },
 ];
 
 const AdminNav = () => {
   const [active, setActive] = useState("Aktuality");
-  const { logout, user } = useAuth(); // Získání přihlášeného uživatele
-  const navigate = useNavigate(); // pro přesměrování
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
 
-  // Pokud uživatel není přihlášený, přesměrujeme ho na hlavní stránku
   useEffect(() => {
     if (!user) {
       navigate("/"); // Přesměrování na hlavní stránku, pokud není přihlášen
     }
   }, [user, navigate]);
 
-  // Pokud uživatel není přihlášený, nebudeme vykreslovat AdminNav
   if (!user) return null;
 
   return (
@@ -51,9 +49,7 @@ const AdminNav = () => {
         borderRight: "1px solid #e0e0e0",
       }}
     >
-      <Box
-        sx={{ display: "flex", justifyContent: "space-between", padding: 2 }}
-      >
+      <Box sx={{ display: "flex", justifyContent: "space-between", padding: 2 }}>
         <img
           src="/src/assets/icons/logo.png"
           alt="logo"
@@ -90,14 +86,7 @@ const AdminNav = () => {
 
       <Divider />
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          paddingTop: 2,
-        }}
-      >
+      <Box sx={{ display: "flex", flexDirection: "column", paddingTop: 2 }}>
         <ListItem button onClick={() => logout()}>
           <ListItemIcon>
             <IconLogout />

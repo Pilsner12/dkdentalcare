@@ -8,11 +8,13 @@ function Header() {
       sx={{ display: "flex", alignItems: "center", gap: 1, cursor: "pointer", margin: 1.5 }}
       onClick={() => document.getElementById("home")?.scrollIntoView({ behavior: "smooth" })}
     >
+      {/* Logo společnosti */}
       <img 
         src={logo} // Použití importovaného obrázku
         alt="DK Dental Care Logo" 
         style={{ height: 50 }} 
       />
+      {/* Text vedle loga */}
       <Box>
         <Typography variant="h6" sx={{ fontWeight: "bold" }}>DK</Typography>
         <Typography 

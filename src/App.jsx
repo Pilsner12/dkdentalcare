@@ -23,7 +23,10 @@ import Header from "./components/Header";
 import PriceList from "./pages/PriceList";
 import LogIn from "./admin/LogIn";
 import AdminNav from "./admin/AdminNav";
-import RepublikaBezKazu from "./pages/RepublikaBezKazu"; // Přidán import
+import Aktuality from "./admin/Aktuality";
+import Cenik from "./components/Cenik";
+import OrdinacniDoba from "./admin/OrdinacniDoba";
+import RepublikaBezKazu from "./pages/RepublikaBezKazu";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -77,8 +80,27 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Routes>
+          {/* Admin Routes */}
           <Route path="/admin" element={<LogIn />} />
-          <Route path="/admin/*" element={<AdminNav />} />
+          <Route
+            path="/admin/*"
+            element={
+              <Box sx={{ display: "flex", minHeight: "100vh" }}>
+                {/* Navigační panel */}
+                <AdminNav />
+                {/* Obsah administrativního prostředí */}
+                <Box sx={{ flex: 1, padding: 3 }}>
+                  <Routes>
+                    <Route path="aktuality" element={<Aktuality />} />
+                    <Route path="cenik" element={<Cenik />} />
+                    <Route path="ordinacni-doba" element={<OrdinacniDoba />} />
+                  </Routes>
+                </Box>
+              </Box>
+            }
+          />
+
+          {/* Public Routes */}
           <Route
             path="/"
             element={

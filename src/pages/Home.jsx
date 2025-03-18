@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
-import OrdinacniDoba from "../components/OpeningTime";
+import OrdinacniDoba from "../admin/OpeningTime"; // Správný import
 import "./Home.css";
 
 function Home() {
@@ -35,7 +35,7 @@ function Home() {
           pro celou Vaši rodinu.
         </Typography>
 
-        {/* Umístění Ordinační doby */}
+        {/* Ordinační doba */}
         <Box
           className="opening-time-wrapper"
           sx={{
