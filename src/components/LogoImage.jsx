@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import React from "react";
-import logo from "../assets/logo.png"; // Cesta k obrázku
+import PropTypes from "prop-types";
 
-const LogoImage = () => {
+const LogoImage = ({ src, alt }) => {
   return (
     <Box
       sx={{
@@ -18,8 +18,8 @@ const LogoImage = () => {
       }}
     >
       <img
-        src={logo} // Zdroj obrázku
-        alt="Logo" // Alternativní text pro obrázek
+        src={src} // Zdroj obrázku
+        alt={alt} // Alternativní text pro obrázek
         style={{
           maxWidth: "100%", // Přizpůsobení šířky obsahu boxu
           maxHeight: "100%", // Přizpůsobení výšky obsahu boxu
@@ -27,6 +27,11 @@ const LogoImage = () => {
       />
     </Box>
   );
+};
+
+LogoImage.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
 };
 
 export default LogoImage;
