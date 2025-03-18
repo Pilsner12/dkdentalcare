@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route  } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -11,9 +11,10 @@ import {
   List,
   ListItem,
   ListItemText,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+} from "@mui/material"; // Import z npm
+import MenuIcon from "@mui/icons-material/Menu"; // Import z npm
+import CloseIcon from "@mui/icons-material/Close"; // Import z npm
+import { createTheme, ThemeProvider } from "@mui/material/styles"; // Import z npm
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import CalendarPage from "./pages/Calendar";
@@ -21,7 +22,6 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import RepublikaBezKazu from "./pages/RepublikaBezKazu";
 import PriceList from "./pages/PriceList";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LogIn from "./admin/LogIn";
 import AdminNav from "./admin/AdminNav";
 import AOS from "aos";
