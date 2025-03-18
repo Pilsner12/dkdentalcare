@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Container, Box, TextField, Button, Typography, Alert, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabase/supabase-client"; // Ověř správnou cestu
+import React from 'react';
 
 function LogIn() {
   const [email, setEmail] = useState("");

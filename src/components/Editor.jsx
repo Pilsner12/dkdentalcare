@@ -1,7 +1,9 @@
-import  { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types'; // Import pro validaci props
 import EditorJS from '@editorjs/editorjs';
+import React from 'react'; // Import React, pokud není již importován
 
-function Editor({ contentType, initialData, onSave }) {
+function Editor({ initialData, onSave }) {
   const editorRef = useRef(null);
 
   useEffect(() => {
@@ -31,7 +33,18 @@ function Editor({ contentType, initialData, onSave }) {
     };
   }, [initialData, onSave]);
 
-  return <div id="editorjs" style={{ border: '1px solid #ddd', padding: '10px', width: '100%', minHeight: '300px' }}></div>;
+  return (
+    <div
+      id="editorjs"
+      style={{ border: '1px solid #ddd', padding: '10px', width: '100%', minHeight: '300px' }}
+    ></div>
+  );
 }
+
+// Validace props
+Editor.propTypes = {
+  initialData: PropTypes.object, // Pokud je to objekt (editor data)
+  onSave: PropTypes.func.isRequired, // Funkce pro ukládání dat
+};
 
 export default Editor;

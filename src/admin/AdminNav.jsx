@@ -17,6 +17,7 @@ import {
   IconLogout,
 } from "@tabler/icons-react"; // Ikony
 import { useAuth } from "../admin/AuthContext"; // Pro získání údajů o uživatelském přihlášení
+import React from 'react';
 
 const data = [
   { link: "/admin/aktuality", label: "Aktuality", icon: IconBellRinging },

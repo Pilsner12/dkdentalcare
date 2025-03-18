@@ -1,4 +1,5 @@
-import {  useEffect, useState } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../supabase/supabase-client";
 import {
   Container,
@@ -20,28 +21,44 @@ export function PriceList() {
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        const { data, error } = await supabase
-          .from("obsah")
-          .select("obsah")
-          .eq("typ", "cenik")
-          .limit(1)
-          .single();
+      const { data, error } = await supabase
+        .from("obsah")
+        .select("obsah")
+        .eq("typ", "cenik")
+        .limit(1)
+        .single();
 
-        if (error) {
-          setError(error.message);
-        } else {
-          setObsah(data?.obsah || "");
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+      if (error) {
+        setError(error.message);
+      } else {
+        setObsah(data?.obsah || "");
       }
+      setLoading(false);
     }
 
     fetchData();
   }, []);
+
+  const formatPrice = (price) => {
+    if (!price) return "";
+    return price.replace(/(\d)(Kč)/, "$1 Kč").trim();
+  };
+
+  const parsePriceList = (text) =>
+    text
+      .split("<p>")
+      .filter((line) => line.trim() !== "")
+      .map((line) => line.replace("</p>", "").trim())
+      .map((line) => {
+        const parts = line.split(":").map((part) => part.trim());
+        if (parts.length === 2) {
+          return { service: parts[0], price: formatPrice(parts[1]) };
+        }
+        return null;
+      })
+      .filter(Boolean); // Odstraní null hodnoty
+
+  const priceListData = parsePriceList(obsah);
 
   if (loading) {
     return <Typography align="center">Načítání...</Typography>;
@@ -49,35 +66,21 @@ export function PriceList() {
 
   if (error) {
     return (
-      <Typography color="error" align="center">
-        Chyba: {error}
-      </Typography>
+      <Box textAlign="center">
+        <Typography color="error">Chyba: {error}</Typography>
+        <button onClick={() => setLoading(true)}>Zkuste to znovu</button>
+      </Box>
     );
   }
 
-  const formatPrice = (price) => price.replace(/(\d)(Kč)/, "$1 Kč");
-
-  const parsePriceList = (text) => {
-    return text
-      .split("<p>")
-      .filter((line) => line.trim() !== "")
-      .map((line) => line.replace("</p>", "").trim())
-      .map((line) => {
-        const [service, price] = line.split(":").map((part) => part.trim());
-        return { service, price: formatPrice(price) };
-      });
-  };
-
-  const priceListData = parsePriceList(obsah);
-
   return (
-    <div>
+    <>
       <Container maxWidth="sm" sx={{ mt: 4 }}>
         <Paper elevation={3} sx={{ p: 3 }}>
           <Typography variant="h6" align="center" sx={{ mb: 2 }}>
             Ceník služeb
           </Typography>
-          <Table size="small">
+          <Table size="small" aria-label="Ceník služeb">
             <TableHead>
               <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
                 <TableCell sx={{ fontWeight: "bold" }}>Popis služby</TableCell>
@@ -96,16 +99,10 @@ export function PriceList() {
         </Paper>
       </Container>
 
-      {/* Nadpis nad logy */}
       <Typography
         variant="h6"
         align="center"
-        sx={{
-          marginTop: 6,
-          marginBottom: 1,
-          fontWeight: "nromal",
-          color: "#333",
-        }}
+        sx={{ mt: 6, mb: 1, fontWeight: "normal", color: "#333" }}
       >
         Pojišťovny, se kterými spolupracujeme:
       </Typography>
@@ -113,23 +110,35 @@ export function PriceList() {
       <Box
         sx={{
           display: "grid",
+
+          justifyItems: "center",
           gridTemplateColumns: {
             xs: "repeat(2, 1fr)",
             sm: "repeat(3, 1fr)",
             md: "repeat(5, 1fr)",
           },
-          gap: 2, // Mezery mezi boxy
-          marginTop: 2,
+          gap: 1,
+          mt: 2,
           justifyContent: "center",
         }}
       >
-        <LogoImage src="/src/assets/pojistovny/cpzp.png" alt="ČPZP" />
-        <LogoImage src="/src/assets/pojistovny/ozp.png" alt="OZP" />
-        <LogoImage src="/src/assets/pojistovny/vozp.png" alt="VOZP" />
-        <LogoImage src="/src/assets/pojistovny/vzp.jpg" alt="VZP" />
-        <LogoImage src="/src/assets/pojistovny/zpmv.png" alt="ZPMV" />
+        <a href="https://www.cpzp.cz" target="_blank" rel="noopener noreferrer">
+          <LogoImage src="/src/assets/pojistovny/cpzp.png" alt="ČPZP" />
+        </a>
+        <a href="https://www.ozp.cz" target="_blank" rel="noopener noreferrer">
+          <LogoImage src="/src/assets/pojistovny/ozp.png" alt="OZP" />
+        </a>
+        <a href="https://www.vozp.cz" target="_blank" rel="noopener noreferrer">
+          <LogoImage src="/src/assets/pojistovny/vozp.png" alt="VOZP" />
+        </a>
+        <a href="https://www.vzp.cz" target="_blank" rel="noopener noreferrer">
+          <LogoImage src="/src/assets/pojistovny/vzp.jpg" alt="VZP" />
+        </a>
+        <a href="https://www.zpmvcr.cz/" target="_blank" rel="noopener noreferrer">
+          <LogoImage src="/src/assets/pojistovny/zpmv.png" alt="ZPMV" />
+        </a>
       </Box>
-    </div>
+    </>
   );
 }
 

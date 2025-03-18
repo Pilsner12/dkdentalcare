@@ -1,8 +1,9 @@
-// RichTextEditor.jsx
 import { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import pro stylování editoru
 import { supabase } from '../supabaseClient'; // Napojení na Supabase klienta
+import React from 'react';
+import PropTypes from 'prop-types'; // Import pro validaci props
 
 const RichTextEditor = ({ dataId }) => {
   const [editorContent, setEditorContent] = useState('');
@@ -51,6 +52,11 @@ const RichTextEditor = ({ dataId }) => {
       <button onClick={saveContent}>Uložit</button>
     </div>
   );
+};
+
+// Přidání validace pro dataId
+RichTextEditor.propTypes = {
+  dataId: PropTypes.string.isRequired, // dataId by měl být string a je povinný
 };
 
 export default RichTextEditor;

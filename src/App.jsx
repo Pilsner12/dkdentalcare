@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route  } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -24,6 +24,12 @@ import PriceList from "./pages/PriceList";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LogIn from "./admin/LogIn";
 import AdminNav from "./admin/AdminNav";
+import AOS from "aos";
+import "aos/dist/aos.css"; // Nezapomeňte importovat stylování
+
+// Konstanty pro nastavení AOS
+const AOS_DURATION = 500; // Rychlost animací
+const AOS_DELAY_STEP = 100; // Zpoždění mezi animacemi pro jednotlivé sekce
 
 const theme = createTheme({
   typography: {
@@ -38,6 +44,13 @@ function App() {
   useEffect(() => {
     const handleScroll = () => setScrolling(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
+
+    // Inicializace AOS s konstantním nastavením
+    AOS.init({
+      duration: AOS_DURATION,
+      once: true,
+    });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -54,14 +67,17 @@ function App() {
   const handleScrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-      setMobileOpen(false);
+      window.scrollTo({
+        top: section.offsetTop - 110, // Posuneme stránku o výšku navbaru
+        behavior: "smooth",
+      });
+      setMobileOpen(false); // Zavře menu na mobilu po kliknutí
     }
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <Router>
         <Routes>
           <Route path="/admin" element={<LogIn />} />
           <Route path="/admin/*" element={<AdminNav />} />
@@ -89,14 +105,19 @@ function App() {
                             key={item.text}
                             color="inherit"
                             sx={{ color: "white", fontSize: "1rem", "&:hover": { color: "yellow" } }}
-                            onClick={() => handleScrollToSection(item.id)}
+                            onClick={() => handleScrollToSection(item.id)} // Používáme tuto funkci pro scrollování
                           >
                             {item.text}
                           </Button>
                         ))}
                       </Box>
-                      <IconButton color="inherit" edge="end" onClick={handleDrawerToggle} sx={{ display: { xs: "block", md: "none" }, color: "white" }}>
-                        <MenuIcon />
+                      <IconButton
+                        color="inherit"
+                        edge="end"
+                        onClick={handleDrawerToggle}
+                        sx={{ display: { xs: "block", md: "none" }, color: "white" }}
+                      >
+                        {mobileOpen ? <CloseIcon /> : <MenuIcon />}
                       </IconButton>
                     </Toolbar>
                   </Container>
@@ -115,20 +136,49 @@ function App() {
                     ))}
                   </List>
                 </Drawer>
-                <Box sx={{ flex: 1, width: "100%", marginTop: `0px` }}>
-                  <section id="home">
+                <Box sx={{ flex: 1, width: "100%" }}>
+                  <section
+                    id="home"
+                    style={{ minHeight: "100vh" }}
+                    data-aos="fade-up"
+                    data-aos-duration={AOS_DURATION}
+                  >
                     <Home />
                   </section>
-                  <section id="calendar">
+                  <section
+                    id="calendar"
+                    style={{ minHeight: "100vh" }}
+                    data-aos="fade-up"
+                    data-aos-duration={AOS_DURATION}
+                    data-aos-delay={AOS_DELAY_STEP}
+                  >
                     <CalendarPage />
                   </section>
-                  <section id="pricelist">
+                  <section
+                    id="pricelist"
+                    style={{ minHeight: "100vh" }}
+                    data-aos="fade-up"
+                    data-aos-duration={AOS_DURATION}
+                    data-aos-delay={AOS_DELAY_STEP * 2}
+                  >
                     <PriceList />
                   </section>
-                  <section id="contact">
+                  <section
+                    id="contact"
+                    style={{ minHeight: "100vh" }}
+                    data-aos="fade-up"
+                    data-aos-duration={AOS_DURATION}
+                    data-aos-delay={AOS_DELAY_STEP * 3}
+                  >
                     <Contact />
                   </section>
-                  <section id="republika">
+                  <section
+                    id="republika"
+                    style={{ minHeight: "100vh" }}
+                    data-aos="fade-up"
+                    data-aos-duration={AOS_DURATION}
+                    data-aos-delay={AOS_DELAY_STEP * 4}
+                  >
                     <RepublikaBezKazu />
                   </section>
                 </Box>

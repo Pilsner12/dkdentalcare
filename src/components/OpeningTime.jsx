@@ -9,6 +9,7 @@ import {
   TableCell,
   Box,
 } from "@mui/material";
+import React from 'react';
 
 const OrdinacniDoba = () => {
   const [ordinacniDoba, setOrdinacniDoba] = useState("");

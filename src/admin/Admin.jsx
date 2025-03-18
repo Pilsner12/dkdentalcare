@@ -1,6 +1,7 @@
 import { Box, Drawer, AppBar, Toolbar, Typography, Container } from '@mui/material';
 import AdminNav from './AdminNav'; // Komponenta postranního panelu
 import { Outlet } from 'react-router-dom'; // Pro vkládání dalších komponent (např. dashboardu)
+import React from 'react';
 
 const drawerWidth = 240; // Šířka postranního panelu
 
