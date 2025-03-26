@@ -27,7 +27,6 @@ const RepublikaBezKazu = () => {
             fontSize: '1.15rem',
             letterSpacing: '0.5px',
             marginBottom: 4,
-            fontFamily: '"Roboto", sans-serif',
             textAlign: 'center',
           }}
         >

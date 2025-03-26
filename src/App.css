@@ -1,0 +1,123 @@
+/* Hlavní kontejner */
+.main-container {
+ display: flex;
+ flex-direction: column;
+ min-height: 100vh;
+}
+
+/* Navigační panel */
+.app-bar {
+ background: linear-gradient(
+   0deg,
+   rgba(0, 51, 102, 0.8),
+   rgba(0, 85, 164, 0.8),
+   rgba(0, 153, 255, 0.8)
+ );
+ border-bottom: 2px solid rgba(255, 255, 0, 0.8);
+ transition: all O.3s ease-in-out;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.app-bar.scrolling {
+ backdrop-filter: blur(10px);
+}
+
+.app-bar-container {
+ display: flex;
+ justify-content: space-between;
+
+ width: 100%;
+ flex-wrap: nowrap; /* Zabrání zalamování prvků na další řádek */
+}
+
+
+
+.toolbar {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ width: 100%;
+ flex-wrap: nowrap; /* Zabrání zalamování prvků na další řádek */
+}
+
+/* Zobrazení menu na větších obrazovkách */
+.menu-items {
+ display: flex; /* Zobrazí menu jako flexbox */
+ gap: 16px; /* Mezera mezi položkami menu */
+}
+
+/* Tlačítka v menu */
+.app-bar-container .menu-button {
+ color: white;    /* Barva textu  hlavniho menu */
+ font-size: 1rem;
+ 
+}
+
+.menu-button:hover {
+ color: yellow;
+}
+
+/* Skrytí burger menu na velkých obrazovkách */
+.menu-icon {
+ display: none; /* Skryje burger menu na velkých obrazovkách */
+ flex-shrink: 0; /* Zabrání zmenšení ikony */
+}
+
+/* Boční menu */
+.drawer-paper {
+ width: 100%;
+ text-transform: uppercase;
+}
+
+.drawer-header {
+ display: flex;
+ justify-content: flex-end;
+ padding: 16px;
+
+}
+
+/* Obsah stránky */
+.content {
+ flex: 1;
+ width: 100%;
+}
+
+.section {
+ min-height: 100vh;
+}
+
+/* Admin rozhraní */
+.admin-container {
+ display: flex;
+ min-height: 100vh;
+}
+
+.admin-content {
+ flex: 1;
+ padding: 24px;
+}
+
+/* Media queries pro responzivní design */
+@media (max-width: 980px) {
+ .menu-items {
+   display: none ; /* Skryje menu na menších obrazovkách */
+ }
+
+ .menu-icon {
+   display: block; /* Zobrazí burger menu na menších obrazovkách */
+   color: white !important;
+ }
+}
+
+@media (min-width: 981px) {
+ .menu-items {
+   display: flex; /* Zobrazí menu na větších obrazovkách */
+   color: white ;
+ }
+
+ .menu-icon {
+   display: none !important; /* Skryje burger menu na větších obrazovkách */
+      color: white;
+ }
+}
+

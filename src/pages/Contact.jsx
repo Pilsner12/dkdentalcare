@@ -97,14 +97,16 @@ export function Contact() {
     <Container maxWidth="md">
       <Grid container spacing={4}>
         <Grid item xs={12} sm={6}>
-          <Typography variant="h4" gutterBottom mt={10} >Kontaktujte nás</Typography>
-          <Typography variant="body1" paragraph mt={6} >
+          <Typography variant="h4" gutterBottom mt={10}>
+            Kontaktujte nás
+          </Typography>
+          <Typography variant="body1" paragraph mt={6}>
             Zavolejte na recepci pro potvrzení Vámi vybraného termínu.
           </Typography>
           <ContactIconsList />
         </Grid>
 
-        <Grid item xs={12} sm={6} mt={20} >
+        <Grid item xs={12} sm={6} mt={20}>
           <form noValidate onSubmit={handleSubmit}>
             <TextField
               value={userName}
@@ -137,7 +139,9 @@ export function Contact() {
             />
             <Grid container justifyContent="flex-end" spacing={2} sx={{ marginTop: 2 }}>
               <Grid item>
-                <Button variant="outlined" color="error" onClick={resetForm}>Zrušit</Button>
+                <Button variant="outlined" color="error" onClick={resetForm}>
+                  Zrušit
+                </Button>
               </Grid>
               <Grid item>
                 <Button variant="contained" color="primary" type="submit" disabled={isSubmitting}>

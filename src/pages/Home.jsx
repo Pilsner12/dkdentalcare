@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
-import OrdinacniDoba from "../admin/OpeningTime"; // Správný import
+import { Box, Button, Container, Typography } from "@mui/material";
 import "./Home.css";
 
-function Home() {
+function Home({ handleScrollToSection }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -12,41 +11,38 @@ function Home() {
   }, []);
 
   return (
-    <Box className="home-container">
-      <Box className="background-overlay" />
-      <Box className="content-wrapper">
-        {/* Nadpis 1 */}
-        <Typography
-          variant="h2"
-          component="h1"
-          className="main-title"
-          aria-label="Stomatologická péče"
-        >
-          Stomatologická péče
-        </Typography>
+    <div className="home-container">
+      <Container>
+        <Box className="content-wrapper">
+          {/* Levá část */}
+          <Box className="left-section">
+            <Typography
+              variant="h2"
+              className="main-title"
+              aria-label="Stomatologická péče"
+            >
+              Stomatologická péče
+            </Typography>
+            <Typography
+              variant="h5"
+              className="sub-title"
+              aria-label="pro celou Vaši rodinu"
+            >
+              pro celou Vaši rodinu.
+            </Typography>
+          </Box>
 
-        {/* Nadpis 2 */}
-        <Typography
-          variant="h3"
-          component="h2"
-          className="sub-title"
-          aria-label="pro celou Vaši rodinu"
-        >
-          pro celou Vaši rodinu.
-        </Typography>
-
-        {/* Ordinační doba */}
-        <Box
-          className="opening-time-wrapper"
-          sx={{
-            opacity: isLoaded ? 1 : 0,
-            transition: "opacity 1s",
-          }}
-        >
-          <OrdinacniDoba />
+          {/* Pravá část */}
+          <Box className="right-section"></Box>
         </Box>
-      </Box>
-    </Box>
+        <Button
+          className="home-button-order"
+          onClick={() => handleScrollToSection("contact")}
+        >
+          Objednat se
+        </Button>
+      </Container>
+    </div>
   );
 }
 

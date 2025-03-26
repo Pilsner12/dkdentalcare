@@ -11,7 +11,10 @@
 
 /* Reset pro tělo stránky */
 body {
-  font-family: 'Montserrat', Arial, sans-serif; /* Nastavte Montserrat jako výchozí font */
+  font-family: 'Titillium Web', sans-serif; /* Nastavte Montserrat jako výchozí font */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   line-height: 1.5;
   background-color: #f4f4f4; /* Změňte podle potřeby */
   color: #333; /* Barva textu */
@@ -62,4 +65,24 @@ hr {
 /* Zrušení výchozích stylů pro některé HTML5 elementy */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
+}
+
+/* Přepsání výchozího fontu Material-UI */
+.MuiTypography-root,
+.MuiButton-root,
+.MuiInputBase-root {
+  font-family: 'Titillium Web', sans-serif !important;
+}
+
+/* Přepsání výchozího fontu pro TextField */
+.MuiInputBase-root {
+  font-family: 'Titillium Web', sans-serif !important;
+}
+
+.MuiOutlinedInput-root {
+  font-family: 'Titillium Web', sans-serif !important;
+}
+
+.MuiInputLabel-root {
+  font-family: 'Titillium Web', sans-serif !important;
 }

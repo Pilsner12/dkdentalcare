@@ -11,7 +11,6 @@ import {
   TableCell,
   Box,
 } from "@mui/material";
-import LogoImage from "../components/LogoImage"; // Import komponenty
 
 export function PriceList() {
   const [obsah, setObsah] = useState("");
@@ -55,7 +54,7 @@ export function PriceList() {
         }
         return null;
       })
-      .filter(Boolean); // Odstraní null hodnoty
+      .filter(Boolean);
 
   const priceListData = parsePriceList(obsah);
 
@@ -73,70 +72,33 @@ export function PriceList() {
   }
 
   return (
-    <>
-      <Container maxWidth="sm" sx={{ mt: 4 }}>
-        <Paper elevation={3} sx={{ p: 3 }}>
-          <Typography variant="h6" align="center" sx={{ mb: 2 }}>
-            Ceník služeb
-          </Typography>
-          <Table size="small" aria-label="Ceník služeb">
-            <TableHead>
-              <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                <TableCell sx={{ fontWeight: "bold" }}>Popis služby</TableCell>
-                <TableCell sx={{ fontWeight: "bold" }}>Cena</TableCell>
+    <Container maxWidth="sm" sx={{ mt: 4 }}>
+      <Paper elevation={3} sx={{ p: 3 }}>
+        <Typography variant="h6" align="center" sx={{ mb: 2, fontFamily: "'Titillium Web', sans-serif" }}>
+          Ceník služeb
+        </Typography>
+        <Table size="small" aria-label="Ceník služeb">
+          <TableHead>
+            <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
+              <TableCell sx={{ fontWeight: "bold", fontFamily: "'Titillium Web', sans-serif" }}>
+                Popis služby
+              </TableCell>
+              <TableCell sx={{ fontWeight: "bold", fontFamily: "'Titillium Web', sans-serif" }}>
+                Cena
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {priceListData.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell sx={{ fontFamily: "'Titillium Web', sans-serif" }}>{row.service}</TableCell>
+                <TableCell sx={{ fontFamily: "'Titillium Web', sans-serif" }}>{row.price}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {priceListData.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell>{row.service}</TableCell>
-                  <TableCell>{row.price}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Paper>
-      </Container>
-
-      <Typography
-        variant="h6"
-        align="center"
-        sx={{ mt: 6, mb: 1, fontWeight: "normal", color: "#333" }}
-      >
-        Pojišťovny, se kterými spolupracujeme:
-      </Typography>
-
-      <Box
-        sx={{
-          display: "grid",
-          justifyItems: "center",
-          gridTemplateColumns: {
-            xs: "repeat(2, 1fr)",
-            sm: "repeat(3, 1fr)",
-            md: "repeat(5, 1fr)",
-          },
-          gap: 1,
-          mt: 2,
-          justifyContent: "center",
-        }}
-      >
-        <a href="https://www.cpzp.cz" target="_blank" rel="noopener noreferrer">
-          <LogoImage src="/assets/pojistovny/cpzp.png" alt="ČPZP" />
-        </a>
-        <a href="https://www.ozp.cz" target="_blank" rel="noopener noreferrer">
-          <LogoImage src="/assets/pojistovny/ozp.png" alt="OZP" />
-        </a>
-        <a href="https://www.vozp.cz" target="_blank" rel="noopener noreferrer">
-          <LogoImage src="/assets/pojistovny/vozp.png" alt="VOZP" />
-        </a>
-        <a href="https://www.vzp.cz" target="_blank" rel="noopener noreferrer">
-          <LogoImage src="/assets/pojistovny/vzp.jpg" alt="VZP" />
-        </a>
-        <a href="https://www.zpmvcr.cz/" target="_blank" rel="noopener noreferrer">
-          <LogoImage src="/assets/pojistovny/zpmv.png" alt="ZPMV" />
-        </a>
-      </Box>
-    </>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
+    </Container>
   );
 }
 

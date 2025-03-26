@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import logo from "../assets/icons/logo.png"; // Import obrázku
 
 function Header() {
   return (
@@ -10,7 +9,7 @@ function Header() {
     >
       {/* Logo společnosti */}
       <img 
-        src={logo} // Použití importovaného obrázku
+        src="/assets/icons/dkdc_logo.png" // Cesta k obrázku ve složce public
         alt="DK Dental Care Logo" 
         style={{ height: 50 }} 
       />

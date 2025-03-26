@@ -12,7 +12,6 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import Home from "./pages/Home";
@@ -29,15 +28,10 @@ import OrdinacniDoba from "./admin/OrdinacniDoba";
 import RepublikaBezKazu from "./pages/RepublikaBezKazu";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import "./App.css";
 
 const AOS_DURATION = 500;
 const AOS_DELAY_STEP = 100;
-
-const theme = createTheme({
-  typography: {
-    fontFamily: "Montserrat, Arial, sans-serif",
-  },
-});
 
 function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -69,7 +63,7 @@ function App() {
     const section = document.getElementById(id);
     if (section) {
       window.scrollTo({
-        top: section.offsetTop - 110,
+        top: section.offsetTop - 110, // Odstup od horního okraje stránky (výška AppBar)
         behavior: "smooth",
       });
       setMobileOpen(false);
@@ -77,138 +71,121 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Routes>
-          {/* Admin Routes */}
-          <Route path="/admin" element={<LogIn />} />
-          <Route
-            path="/admin/*"
-            element={
-              <Box sx={{ display: "flex", minHeight: "100vh" }}>
-                {/* Navigační panel */}
-                <AdminNav />
-                {/* Obsah administrativního prostředí */}
-                <Box sx={{ flex: 1, padding: 3 }}>
-                  <Routes>
-                    <Route path="aktuality" element={<Aktuality />} />
-                    <Route path="cenik" element={<Cenik />} />
-                    <Route path="ordinacni-doba" element={<OrdinacniDoba />} />
-                  </Routes>
-                </Box>
+    <Router>
+      <Routes>
+        {/* Admin Routes */}
+        <Route path="/admin" element={<LogIn />} />
+        <Route
+          path="/admin/*"
+          element={
+            <Box className="admin-container">
+              <AdminNav />
+              <Box className="admin-content">
+                <Routes>
+                  <Route path="aktuality" element={<Aktuality />} />
+                  <Route path="cenik" element={<Cenik />} />
+                  <Route path="ordinacni-doba" element={<OrdinacniDoba />} />
+                </Routes>
               </Box>
-            }
-          />
+            </Box>
+          }
+        />
 
-          {/* Public Routes */}
-          <Route
-            path="/"
-            element={
-              <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-                <AppBar
-                  position="fixed"
-                  sx={{
-                    background:
-                      "linear-gradient(0deg, rgba(0, 51, 102, 0.8), rgba(0, 85, 164, 0.8), rgba(0, 153, 255, 0.8))",
-                    backdropFilter: scrolling ? "blur(10px)" : "none",
-                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-                    borderBottom: "2px solid rgba(255, 255, 0, 0.8)",
-                    transition: "all 0.3s ease-in-out",
-                  }}
-                >
-                  <Container sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
-                      <Header />
-                      <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-                        {menuItems.map((item) => (
-                          <Button
-                            key={item.text}
-                            color="inherit"
-                            sx={{ color: "white", fontSize: "1rem", "&:hover": { color: "yellow" } }}
-                            onClick={() => handleScrollToSection(item.id)}
-                          >
-                            {item.text}
-                          </Button>
-                        ))}
-                      </Box>
-                      <IconButton
-                        color="inherit"
-                        edge="end"
-                        onClick={handleDrawerToggle}
-                        sx={{ display: { xs: "block", md: "none" }, color: "white" }}
-                      >
-                        {mobileOpen ? <CloseIcon /> : <MenuIcon />}
-                      </IconButton>
-                    </Toolbar>
-                  </Container>
-                </AppBar>
-                <Drawer anchor="top" open={mobileOpen} onClose={handleDrawerToggle} PaperProps={{ sx: { width: "100%" } }}>
-                  <Box sx={{ display: "flex", justifyContent: "flex-end", p: 2 }}>
-                    <IconButton onClick={handleDrawerToggle}>
-                      <CloseIcon />
+        {/* Public Routes */}
+        <Route
+          path="/"
+          element={
+            <Box className="main-container">
+              <AppBar className={`app-bar ${scrolling ? "scrolling" : ""}`}>
+                <Container className="app-bar-container">
+                  <Toolbar className="toolbar">
+                    <Header />
+                    <Box className="menu-items">
+                      {menuItems.map((item) => (
+                        <Button
+                          key={item.text}
+                          className="menu-button"
+                          onClick={() => handleScrollToSection(item.id)}
+                        >
+                          {item.text}
+                        </Button>
+                      ))}
+                    </Box>
+                    <IconButton
+                      className="menu-icon"
+                      onClick={handleDrawerToggle}
+                    >
+                      {mobileOpen ? <CloseIcon /> : <MenuIcon />}
                     </IconButton>
-                  </Box>
-                  <List>
-                    {menuItems.map((item) => (
-                      <ListItem button key={item.text} onClick={() => handleScrollToSection(item.id)}>
-                        <ListItemText primary={item.text} />
-                      </ListItem>
-                    ))}
-                  </List>
-                </Drawer>
-                <Box sx={{ flex: 1, width: "100%" }}>
-                  <section
-                    id="home"
-                    style={{ minHeight: "100vh" }}
-                    data-aos="fade-up"
-                    data-aos-duration={AOS_DURATION}
-                  >
-                    <Home />
-                  </section>
-                  <section
-                    id="calendar"
-                    style={{ minHeight: "100vh" }}
-                    data-aos="fade-up"
-                    data-aos-duration={AOS_DURATION}
-                    data-aos-delay={AOS_DELAY_STEP}
-                  >
-                    <CalendarPage />
-                  </section>
-                  <section
-                    id="pricelist"
-                    style={{ minHeight: "100vh" }}
-                    data-aos="fade-up"
-                    data-aos-duration={AOS_DURATION}
-                    data-aos-delay={AOS_DELAY_STEP * 2}
-                  >
-                    <PriceList />
-                  </section>
-                  <section
-                    id="contact"
-                    style={{ minHeight: "100vh" }}
-                    data-aos="fade-up"
-                    data-aos-duration={AOS_DURATION}
-                    data-aos-delay={AOS_DELAY_STEP * 3}
-                  >
-                    <Contact />
-                  </section>
-                  <section
-                    id="republika"
-                    style={{ minHeight: "100vh" }}
-                    data-aos="fade-up"
-                    data-aos-duration={AOS_DURATION}
-                    data-aos-delay={AOS_DELAY_STEP * 4}
-                  >
-                    <RepublikaBezKazu />
-                  </section>
+                  </Toolbar>
+                </Container>
+              </AppBar>
+              <Drawer
+                anchor="top"
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                PaperProps={{ className: "drawer-paper" }}
+              >
+                <Box className="drawer-header">
+                  <IconButton onClick={handleDrawerToggle}>
+                    <CloseIcon />
+                  </IconButton>
                 </Box>
-                <Footer />
+                <List>
+                  {menuItems.map((item) => (
+                    <ListItem
+                      button
+                      key={item.text}
+                      onClick={() => handleScrollToSection(item.id)}
+                    >
+                      <ListItemText primary={item.text} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Drawer>
+              <Box className="content">
+                <section id="home" className="section" data-aos="fade-up">
+                  <Home handleScrollToSection={handleScrollToSection} />
+                </section>
+                <section
+                  id="calendar"
+                  className="section"
+                  data-aos="fade-up"
+                  data-aos-delay={AOS_DELAY_STEP}
+                >
+                  <CalendarPage />
+                </section>
+                <section
+                  id="pricelist"
+                  className="section"
+                  data-aos="fade-up"
+                  data-aos-delay={AOS_DELAY_STEP * 2}
+                >
+                  <PriceList />
+                </section>
+                <section
+                  id="contact"
+                  className="section"
+                  data-aos="fade-up"
+                  data-aos-delay={AOS_DELAY_STEP * 3}
+                >
+                  <Contact />
+                </section>
+                <section
+                  id="republika"
+                  className="section"
+                  data-aos="fade-up"
+                  data-aos-delay={AOS_DELAY_STEP * 4}
+                >
+                  <RepublikaBezKazu />
+                </section>
               </Box>
-            }
-          />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+              <Footer />
+            </Box>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 

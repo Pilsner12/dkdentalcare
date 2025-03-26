@@ -1,6 +1,13 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { supabase } from "../supabase/supabase-client";
-import Editor from "../components/Editor";
+
+
+// Custom logging function
+const logError = (message, error) => {
+  // Implement your logging logic here, e.g., send to a logging service
+  console.log(message, error);
+};
+
 
 const Aktuality = () => {
   const [data, setData] = useState("");
@@ -10,7 +17,8 @@ const Aktuality = () => {
     const fetchData = async () => {
       setLoading(true);
       const { data, error } = await supabase
-        .from("obsah")
+        // Log the error using a custom logging function
+        logError("Chyba při načítání dat:", error)
         .select("obsah")
         .eq("typ", "aktuality")
         .single();
