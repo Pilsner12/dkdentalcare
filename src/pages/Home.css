@@ -1,22 +1,21 @@
 /* Nastavení pozadí a základního boxu */
 .home-container {
- background: 
-   url("/src/assets/img/dentist-with-smile-lq.jpg");
- background-size: cover;
- background-position: center;
- background-repeat: no-repeat;
- width: 100vw;
- height: 100vh;
- position: relative;
- margin: 0;
+  background: url("/src/assets/img/dentist-with-smile-lq.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  margin: 0;
 }
 
 .background-overlay {
- position: absolute;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .content-wrapper {
@@ -38,29 +37,57 @@
   font-weight: bold;
   padding-top: 14rem;
   padding-left: 4rem;
-
-
 }
 
 .sub-title {
   font-size: 1.5rem;
   color: #2a2a2a;
-  padding-top: 1rem;
+  padding-top: 3rem;
   padding-left: 4rem;
-
-  
+  padding-right: 3rem;
 }
 
 .home-container .home-button-order {
   margin-top: 5rem;
-  margin-left: 4rem;
-  width: 10rem;
-  height: 4rem;
-  border: 1px solid ;
-
+  margin-left: 8rem;
+  width: 14rem;
+  height: 5rem;
+  border: 1px solid;
+  font-size: larger;
 }
 
 .home-container .home-button-order:hover {
-  background-color:  rgba(0, 153, 255, 0.1)
+  background-color: rgba(0, 153, 255, 0.1);
 }
- 
+
+/* Media query pro telefony (šířka menší než 768px) */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 1.3rem; /* Zmenší velikost textu */
+    font-weight: bold;
+    padding-top: 7rem; /* Odstraní padding */
+    text-align: center; /* Zarovná text na střed */
+  }
+
+  .sub-title {
+    font-size: 1rem; /* Zmenší velikost textu */
+    color: #2a2a2a;
+    padding-top: 2; /* Odstraní padding */
+    text-align: center; /* Zarovná text na střed */
+  }
+
+  .left-section {
+    width: 100%; /* Zajistí, že obsah zabere celou šířku */
+    align-items: center; /* Zarovná obsah na střed */
+  }
+  .home-container .home-button-order {
+    display: block; /* Zajistí, že tlačítko bude blokový prvek */
+    margin: 20px auto; /* Zarovná tlačítko horizontálně na střed */
+    width: 14rem;
+    height: 5rem;
+    margin-top: 3rem;
+    border: 1px solid;
+    font-size: larger;
+    text-align: center; /* Zarovná text uvnitř tlačítka */
+}
+}

@@ -21,14 +21,14 @@ function Home({ handleScrollToSection }) {
               className="main-title"
               aria-label="Stomatologická péče"
             >
-              Stomatologická péče
+              Péče o vaše zuby s dlouholetou tradicí
             </Typography>
             <Typography
               variant="h5"
               className="sub-title"
               aria-label="pro celou Vaši rodinu"
             >
-              pro celou Vaši rodinu.
+              Spojujeme léty ověřené metody s nejnovějšími postupy, abychom vám poskytli tu nejlepší péči.
             </Typography>
           </Box>
 

@@ -12,7 +12,7 @@ import {
 import React from "react";
 
 const OpeningTime = () => {
-  const [ordinacniDoba, setOpeningTime] = useState(""); // Opraveno: správný název stavu
+  const [ordinacniDoba, setOpeningTime] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
 
   const fetchOpeningTime = async () => {
@@ -29,7 +29,7 @@ const OpeningTime = () => {
       }
 
       if (data) {
-        setOpeningTime(data.obsah); // Uložení obsahu do stavu
+        setOpeningTime(data.obsah);
       } else {
         console.warn("No rows returned for ordinacni_doba.");
         setErrorMessage("Nebyly nalezeny žádné záznamy ordinační doby.");
@@ -45,16 +45,16 @@ const OpeningTime = () => {
   }, []);
 
   const formatOpeningTimeToTable = () => {
-    if (!ordinacniDoba) return []; // Ochrana proti prázdným datům
+    if (!ordinacniDoba) return [];
     const days = ordinacniDoba
-      .split("<p>") // Rozdělení na jednotlivé dny
-      .filter((item) => item.trim() !== "") // Odstranění prázdných řádků
-      .map((item) => item.replace("</p>", "").trim()); // Odstranění HTML značek
+      .split("<p>")
+      .filter((item) => item.trim() !== "")
+      .map((item) => item.replace("</p>", "").trim());
     return days.map((day) => {
       const parts = day.split(":");
       return {
-        dayName: parts[0].trim(), // Název dne
-        hours: parts.slice(1).join(":").trim(), // Ordinační hodiny
+        dayName: parts[0].trim(),
+        hours: parts.slice(1).join(":").trim(),
       };
     });
   };
@@ -64,11 +64,10 @@ const OpeningTime = () => {
   return errorMessage ? (
     <Typography
       variant="h6"
-      color="error"
       align="center"
       sx={{
         marginTop: "20px",
-        color: "#d32f2f",
+        color: "white", // Text bude bílý
         fontWeight: "bold",
       }}
     >
@@ -77,7 +76,7 @@ const OpeningTime = () => {
   ) : (
     <Box
       sx={{
-        marginTop: "40px",
+        marginTop: "20px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -89,17 +88,31 @@ const OpeningTime = () => {
         sx={{
           margin: "0 auto",
           maxWidth: "400px",
-          backgroundColor: "rgba(255, 255, 255, 0.9)",
+          backgroundColor: "transparent", // Odstraní pozadí tabulky
           borderRadius: "0px",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+          boxShadow: "none", // Odstraní stín tabulky
         }}
       >
         <TableHead>
-          <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-            <TableCell sx={{ fontWeight: "bold", color: "#333" }}>
+          <TableRow>
+            <TableCell
+              sx={{
+                fontWeight: "bold",
+                color: "white", // Text bude bílý
+                borderBottom: "1px solid white", // Bílá spodní čára
+                textTransform: "uppercase", // Všechna písmena velká
+              }}
+            >
               Den
             </TableCell>
-            <TableCell sx={{ fontWeight: "bold", color: "#333" }}>
+            <TableCell
+              sx={{
+                fontWeight: "bold",
+                color: "white", // Text bude bílý
+                borderBottom: "1px solid white", // Bílá spodní čára
+                textTransform: "uppercase", // Všechna písmena velká
+              }}
+            >
               Ordinační doba
             </TableCell>
           </TableRow>
@@ -110,12 +123,26 @@ const OpeningTime = () => {
               key={index}
               sx={{
                 "&:nth-of-type(even)": {
-                  backgroundColor: "#f9f9f9",
+                  backgroundColor: "transparent", // Odstraní pozadí sudých řádků
                 },
+                borderBottom: "0.5px solid white", // Tenká čára mezi dny
               }}
             >
-              <TableCell sx={{ color: "#555" }}>{row.dayName}</TableCell>
-              <TableCell sx={{ color: "#555" }}>{row.hours}</TableCell>
+              <TableCell
+                sx={{
+                  color: "white", // Text bude bílý
+                  textTransform: "uppercase", // Všechna písmena velká
+                }}
+              >
+                {row.dayName}
+              </TableCell>
+              <TableCell
+                sx={{
+                  color: "white", // Text bude bílý
+                }}
+              >
+                {row.hours}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
