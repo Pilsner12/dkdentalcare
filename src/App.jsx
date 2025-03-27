@@ -63,7 +63,7 @@ function App() {
     const section = document.getElementById(id);
     if (section) {
       window.scrollTo({
-        top: section.offsetTop - 110, // Odstup od horního okraje stránky (výška AppBar)
+        top: section.offsetTop - 80, // Odstup od horního okraje stránky (výška AppBar)
         behavior: "smooth",
       });
       setMobileOpen(false);
@@ -97,7 +97,10 @@ function App() {
           element={
             <Box className="main-container">
               <AppBar className={`app-bar ${scrolling ? "scrolling" : ""}`}>
-                <Container className="app-bar-container">
+                <Container className="app-bar-container"
+                  
+                >
+
                   <Toolbar className="toolbar">
                     <Header />
                     <Box className="menu-items">

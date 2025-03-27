@@ -35,16 +35,18 @@
 .main-title {
   font-size: 4rem;
   font-weight: bold;
-  padding-top: 14rem;
-  padding-left: 4rem;
+  padding-top: 12rem;
+  margin-top: 14rem;
+  margin-left: 4rem;
 }
 
 .sub-title {
   font-size: 1.5rem;
   color: #2a2a2a;
-  padding-top: 3rem;
-  padding-left: 4rem;
-  padding-right: 3rem;
+  margin-top: 3rem;
+  margin-left: 4rem;
+  margin-right: 3rem;
+  padding-top: 2rem;
 }
 
 .home-container .home-button-order {
@@ -66,7 +68,8 @@
     font-size: 1.3rem; /* Zmenší velikost textu */
     font-weight: bold;
     padding-top: 7rem; /* Odstraní padding */
-    text-align: center; /* Zarovná text na střed */
+text-align: center;
+
   }
 
   .sub-title {

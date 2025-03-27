@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const OpeningTime = () => {
+const OpeningTime = ({ color = "white" }) => {
   const [ordinacniDoba, setOpeningTime] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -67,7 +67,7 @@ const OpeningTime = () => {
       align="center"
       sx={{
         marginTop: "20px",
-        color: "white", // Text bude bílý
+        color: color, // Text bude bílý
         fontWeight: "bold",
       }}
     >
@@ -98,7 +98,7 @@ const OpeningTime = () => {
             <TableCell
               sx={{
                 fontWeight: "bold",
-                color: "white", // Text bude bílý
+                color: color, // Text bude bílý
                 borderBottom: "1px solid white", // Bílá spodní čára
                 textTransform: "uppercase", // Všechna písmena velká
               }}
@@ -108,7 +108,7 @@ const OpeningTime = () => {
             <TableCell
               sx={{
                 fontWeight: "bold",
-                color: "white", // Text bude bílý
+                color: color, // Text bude bílý
                 borderBottom: "1px solid white", // Bílá spodní čára
                 textTransform: "uppercase", // Všechna písmena velká
               }}
@@ -130,7 +130,7 @@ const OpeningTime = () => {
             >
               <TableCell
                 sx={{
-                  color: "white", // Text bude bílý
+                  color: color, // Text bude bílý
                   textTransform: "uppercase", // Všechna písmena velká
                 }}
               >
@@ -138,7 +138,7 @@ const OpeningTime = () => {
               </TableCell>
               <TableCell
                 sx={{
-                  color: "white", // Text bude bílý
+                  color: color, // Text bude bílý
                 }}
               >
                 {row.hours}

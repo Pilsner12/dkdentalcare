@@ -43,7 +43,8 @@
 /* Zobrazení menu na větších obrazovkách */
 .menu-items {
  display: flex; /* Zobrazí menu jako flexbox */
- gap: 16px; /* Mezera mezi položkami menu */
+ gap: 16px; /* Odsazení mezi položkami menu */
+ 
 }
 
 /* Tlačítka v menu */
@@ -72,7 +73,8 @@
 .drawer-header {
  display: flex;
  justify-content: flex-end;
- padding: 16px;
+ padding-right: 25px;
+ padding-top: 10px;
 
 }
 
@@ -119,5 +121,6 @@
    display: none !important; /* Skryje burger menu na větších obrazovkách */
       color: white;
  }
+
 }
 
